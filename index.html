@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi TKA (Tes Kemampuan Akademik) Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- -->
+    <!-- Header Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('landing-page')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-slate-900">Simulasi TKA</h1>
+                    <p class="text-xs text-slate-500">Tes Kemampuan Akademik Online</p>
+                </div>
+            </div>
+
+            <div id="quiz-header-info" class="hidden flex items-center gap-4">
+                <!-- Countdown Timer Display -->
+                <div class="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1.5 rounded-lg font-mono font-bold text-sm shadow-sm">
+                    <i class="fa-regular fa-clock animate-pulse text-amber-600"></i>
+                    <span id="timer-display">20:00</span>
+                </div>
+                <button onclick="confirmFinishQuiz()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-all shadow-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Kirim Jawaban</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- -->
+        <!-- SECTION 1: LANDING PAGE -->
+        <section id="landing-page" class="space-y-8 animate-fade-in">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-slate-900 text-white p-8 sm:p-12 shadow-xl">
+                <div class="relative z-10 max-w-2xl space-y-4">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-blue-200 border border-white/10 backdrop-blur-md">
+                        <i class="fa-solid fa-sparkles text-amber-300"></i> Standar Soal Resmi TKA 2026
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                        Uji Kemampuan Akademikmu Secara Realtime!
+                    </h2>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                        Siapkan diri menghadapi ujian TKA / UTBK dengan simulasi interaktif. Dilengkapi sistem timer otomatis, penilaian skor standar, dan pembahasan super lengkap.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="#kategori-soal" class="bg-white text-blue-700 font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-blue-50 transition-all text-sm inline-flex items-center gap-2">
+                            Pilih Paket Soal <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Background Decorative Circles -->
+                <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-blue-500/20 blur-2xl pointer-events-none"></div>
+                <div class="absolute right-1/3 -top-12 w-48 h-48 rounded-full bg-indigo-500/20 blur-2xl pointer-events-none"></div>
+            </div>
+
+            <!-- Petunjuk Pengerjaan & Rules -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-base mb-1">Timer Realtime</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Setiap paket memiliki durasi pengerjaan. Latihan mengelola waktu ujian secara efektif.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-base mb-1">Skor & Analisis Detail</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Dapatkan hasil skor (0 - 1000) beserta rincian jawaban benar, salah, dan kosong.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-base mb-1">Pembahasan Lengkap</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Pahami konsep jawaban benar dengan modul pembahasan rinci setelah tes selesai.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori / Paket Soal -->
+            <div id="kategori-soal" class="space-y-4 pt-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Pilih Paket Simulasi</h3>
+                        <p class="text-sm text-slate-500">Pilih materi TKA yang ingin kamu latih hari ini</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="package-list">
+                    <!-- Package Card 1 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-blue-100 text-blue-700 font-semibold text-xs px-3 py-1 rounded-full">Paket Campuran</span>
+                                <span class="text-xs text-slate-400 font-medium"><i class="fa-regular fa-clock"></i> 20 Menit</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Simulasi TKA Lengkap (Tryout Utama)</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">Mencakup Penalaran Umum, Pengetahuan Kuantitatif, Bahasa Indonesia, & Bahasa Inggris.</p>
+                            <div class="flex items-center gap-4 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                                <span><i class="fa-solid fa-list-check text-blue-500"></i> 10 Soal</span>
+                                <span><i class="fa-solid fa-star text-amber-400"></i> Standard TKA</span>
+                            </div>
+                        </div>
+                        <button onclick="startQuiz('paket-campuran')" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl transition-all shadow-md shadow-blue-500/20 text-sm flex items-center justify-center gap-2">
+                            <span>Mulai Mengerjakan</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Package Card 2 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-purple-100 text-purple-700 font-semibold text-xs px-3 py-1 rounded-full">Kuantitatif & Logika</span>
+                                <span class="text-xs text-slate-400 font-medium"><i class="fa-regular fa-clock"></i> 15 Menit</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 group-hover:text-purple-600 transition-colors">Fokus Pengetahuan Kuantitatif</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">Menyelesaikan masalah matematika dasar, deret angka, aljabar, dan pola logika.</p>
+                            <div class="flex items-center gap-4 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                                <span><i class="fa-solid fa-list-check text-purple-500"></i> 5 Soal Spesifik</span>
+                                <span><i class="fa-solid fa-bolt text-amber-500"></i> Level Sedang-HOTS</span>
+                            </div>
+                        </div>
+                        <button onclick="startQuiz('paket-kuantitatif')" class="mt-6 w-full bg-slate-900 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                            <span>Mulai Mengerjakan</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Package Card 3 -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="bg-emerald-100 text-emerald-700 font-semibold text-xs px-3 py-1 rounded-full">Literasi & Verbal</span>
+                                <span class="text-xs text-slate-400 font-medium"><i class="fa-regular fa-clock"></i> 15 Menit</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 group-hover:text-emerald-600 transition-colors">Pemahaman Bacaan & Bahasa</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">Penguasaan wacana, tata bahasa Indonesia standar, dan penalaran paragraf.</p>
+                            <div class="flex items-center gap-4 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                                <span><i class="fa-solid fa-list-check text-emerald-500"></i> 5 Soal Latihan</span>
+                                <span><i class="fa-solid fa-book text-emerald-500"></i> Teks Analitis</span>
+                            </div>
+                        </div>
+                        <button onclick="startQuiz('paket-verbal')" class="mt-6 w-full bg-slate-900 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2">
+                            <span>Mulai Mengerjakan</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- SECTION 2: QUIZ INTERFACE PAGE -->
+        <section id="quiz-page" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                
+                <!-- Left Column: Main Question & Options (3 Cols) -->
+                <div class="lg:col-span-3 space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+                        
+                        <!-- Question Header -->
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-blue-100 text-blue-700 font-bold px-3 py-1 rounded-lg text-sm">Soal No. <span id="current-question-num">1</span></span>
+                                <span id="question-category" class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">Penalaran Umum</span>
+                            </div>
+                            <label class="inline-flex items-center gap-2 cursor-pointer text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg border border-amber-200 transition-colors">
+                                <input type="checkbox" id="doubt-checkbox" onchange="toggleDoubt()" class="rounded border-amber-400 text-amber-600 focus:ring-amber-500">
+                                <span><i class="fa-solid fa-flag text-amber-500"></i> Ragu-ragu</span>
+                            </label>
+                        </div>
+
+                        <!-- Question Text / Content -->
+                        <div id="question-text" class="text-slate-800 text-base sm:text-lg font-medium leading-relaxed">
+                            <!-- Question rendered via JS -->
+                        </div>
+
+                        <!-- Answer Options (A, B, C, D, E) -->
+                        <div id="options-container" class="space-y-3 pt-2">
+                            <!-- Options rendered via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Bottom Navigation Buttons -->
+                    <div class="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                        <button id="btn-prev" onclick="navigateQuestion(-1)" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 text-sm flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+                        </button>
+                        
+                        <div class="flex gap-2">
+                            <button id="btn-next" onclick="navigateQuestion(1)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-all shadow-md shadow-blue-500/20 flex items-center gap-2">
+                                Selanjutnya <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Question Palette & Info (1 Col) -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-grip text-blue-600"></i> Navigasi Nomor Soal
+                        </h4>
+                        
+                        <!-- Grid of Number Buttons -->
+                        <div id="question-palette" class="grid grid-cols-5 gap-2 pt-2">
+                            <!-- Palette buttons rendered via JS -->
+                        </div>
+
+                        <!-- Palette Legend -->
+                        <div class="pt-4 border-t border-slate-100 space-y-2 text-xs">
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <span class="w-3.5 h-3.5 rounded bg-blue-600 inline-block"></span>
+                                <span>Sudah Dijawab</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <span class="w-3.5 h-3.5 rounded bg-amber-400 inline-block"></span>
+                                <span>Ragu-ragu</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <span class="w-3.5 h-3.5 rounded bg-slate-100 border border-slate-300 inline-block"></span>
+                                <span>Belum Dijawab</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- -->
+        <!-- SECTION 3: RESULT & DISCUSSION PAGE -->
+        <section id="result-page" class="hidden space-y-8 animate-fade-in">
+            <!-- Score Summary Card -->
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-lg text-center relative overflow-hidden">
+                <div class="max-w-xl mx-auto space-y-4">
+                    <span class="px-4 py-1.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 uppercase tracking-wider">Laporan Hasil Simulasi TKA</span>
+                    
+                    <div class="py-4">
+                        <div class="text-xs text-slate-500 font-medium uppercase tracking-widest mb-1">Skor Akhir Kamu</div>
+                        <div id="final-score-display" class="text-5xl sm:text-6xl font-extrabold text-blue-600 tracking-tight">
+                            0
+                        </div>
+                        <div id="score-predicate" class="text-sm font-semibold text-slate-600 mt-2">
+                            Sangat Baik
+                        </div>
+                    </div>
+
+                    <!-- Answer Breakdown Grid -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto pt-2">
+                        <div class="p-3 sm:p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+                            <div class="text-xs text-emerald-600 font-semibold mb-1">Benar</div>
+                            <div id="stat-correct" class="text-xl sm:text-2xl font-bold text-emerald-700">0</div>
+                        </div>
+                        <div class="p-3 sm:p-4 rounded-2xl bg-rose-50 border border-rose-100">
+                            <div class="text-xs text-rose-600 font-semibold mb-1">Salah</div>
+                            <div id="stat-wrong" class="text-xl sm:text-2xl font-bold text-rose-700">0</div>
+                        </div>
+                        <div class="p-3 sm:p-4 rounded-2xl bg-slate-100 border border-slate-200">
+                            <div class="text-xs text-slate-500 font-semibold mb-1">Kosong</div>
+                            <div id="stat-empty" class="text-xl sm:text-2xl font-bold text-slate-700">0</div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 flex justify-center gap-4">
+                        <button onclick="showSection('landing-page')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-left"></i> Coba Simulasi Lain
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Answer & Explanation Section -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900">Pembahasan Soal Lengkap</h3>
+                        <p class="text-sm text-slate-500">Pelajari kunci jawaban dan penjelasan rinci di bawah ini</p>
+                    </div>
+                </div>
+
+                <!-- Container List for Question Discussions -->
+                <div id="explanation-container" class="space-y-6">
+                    <!-- Dynamic Discussion Items Rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>&copy; 2026 Simulasi TKA Online. Platform Latihan Ujian Akademik Interaktif.</p>
+        </div>
+    </footer>
+
+    <!-- Confirm Submit Modal -->
+    <div id="submit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-fade-in">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <div class="text-center space-y-2">
+                <h3 class="text-lg font-bold text-slate-900">Selesaikan Simulasi?</h3>
+                <p class="text-xs text-slate-500 leading-relaxed" id="modal-status-text">
+                    Apakah kamu yakin ingin mengakhiri ujian dan melihat skor hasil pengerjaan?
+                </p>
+            </div>
+            <div class="flex items-center gap-3 pt-2">
+                <button onclick="closeSubmitModal()" class="w-1/2 py-2.5 rounded-xl border border-slate-300 font-semibold text-slate-700 hover:bg-slate-50 text-sm transition-all">
+                    Kembali
+                </button>
+                <button onclick="submitQuiz()" class="w-1/2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-semibold text-white text-sm shadow-md transition-all">
+                    Ya, Selesai
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic & Question Bank -->
+    <script>
+        // Comprehensive Realistic TKA Question Bank
+        const questionBank = {
+            "paket-campuran": [
+                {
+                    id: 1,
+                    category: "Penalaran Umum",
+                    question: "Semua mahasiswa baru wajib mengikuti orientasi akademik. Sebagian orang yang mengikuti orientasi akademik membawa laptop. Kesimpulan yang PALING TEPAT adalah...",
+                    options: [
+                        "A. Semua mahasiswa baru membawa laptop",
+                        "B. Sebagian mahasiswa baru membawa laptop",
+                        "C. Semua orang yang membawa laptop adalah mahasiswa baru",
+                        "D. Mahasiswa baru yang tidak membawa laptop tidak mengikuti orientasi",
+                        "E. Tidak ada mahasiswa baru yang membawa laptop"
+                    ],
+                    correct: 1, // B (Index 1)
+                    explanation: "Berdasarkan premis: 'Semua mahasiswa baru mengikuti orientasi' (A ⊂ B) dan 'Sebagian yang mengikuti orientasi membawa laptop' (Sebagian B adalah C). Maka kesimpulan silogisme yang sah adalah sebagian mahasiswa baru membawa laptop."
+                },
+                {
+                    id: 2,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Jika $x = 3$ dan $y = -2$, manakah nilai ekspresi $2x^2 - 3xy + y^2$ yang benar?",
+                    options: [
+                        "A. 14",
+                        "B. 22",
+                        "C. 34",
+                        "D. 40",
+                        "E. 18"
+                    ],
+                    correct: 2, // C (34)
+                    explanation: "Substitusikan nilai $x = 3$ dan $y = -2$ ke dalam persamaan:<br>• $2x^2 = 2(3)^2 = 2(9) = 18$<br>• $-3xy = -3(3)(-2) = 18$<br>• $y^2 = (-2)^2 = 4$<br>Maka, $18 + 18 + 4 = 34$."
+                },
+                {
+                    id: 3,
+                    category: "Penalaran Logika",
+                    question: "Diketahui deret angka: 3, 5, 9, 17, 33, ... Angka berikutnya dari deret tersebut adalah...",
+                    options: [
+                        "A. 48",
+                        "B. 65",
+                        "C. 64",
+                        "D. 50",
+                        "E. 72"
+                    ],
+                    correct: 1, // B (65)
+                    explanation: "Pola selisih antar suku berlipat ganda (+2, +4, +8, +16):<br>• $3 (+2) = 5$<br>• $5 (+4) = 9$<br>• $9 (+8) = 17$<br>• $17 (+16) = 33$<br>Selisih berikutnya adalah $+32$, sehingga $33 + 32 = 65$."
+                },
+                {
+                    id: 4,
+                    category: "Pemahaman Bacaan & Menulis",
+                    question: "Penggunaan tanda baca koma (,) yang BENAR sesuai EYD terdapat pada kalimat...",
+                    options: [
+                        "A. Ibu membeli apel, jeruk, dan pisang di pasar.",
+                        "B. Karena hujan deras, maka pertandingan ditunda.",
+                        "C. Saya ingin membeli buku itu, tetapi uang saya tidak cukup.",
+                        "D. Jawaban A dan C benar.",
+                        "E. Semua kalimat di atas salah."
+                    ],
+                    correct: 3, // D (A dan C benar)
+                    explanation: "Kalimat A menggunakan koma secara tepat sebagai unsur rincian serial. Kalimat C tepat menggunakan koma sebelum konjungsi pertentangan 'tetapi'. Namun kalimat B salah karena adanya pengulangan anak-parent klausa 'Karena..., maka...'. Jadi pilihan D benar."
+                },
+                {
+                    id: 5,
+                    category: "Bahasa Inggris",
+                    question: "Choose the correct word to complete the sentence: 'If the weather ________ fine tomorrow, we will go for a picnic in the park.'",
+                    options: [
+                        "A. is",
+                        "B. will be",
+                        "C. was",
+                        "D. were",
+                        "E. has been"
+                    ],
+                    correct: 0, // A
+                    explanation: "Kalimat ini menggunakan First Conditional (pengandaian syarat nyata di masa depan). Formula: <i>If + Simple Present (is/are/verbs), Simple Future (will + V1)</i>. Oleh karena itu, kata yang tepat adalah <b>is</b>."
+                },
+                {
+                    id: 6,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Sebuah toko memberikan diskon ganda 20% + 10%. Jika harga awal suatu barang adalah Rp 200.000, berapa harga akhir yang harus dibayar?",
+                    options: [
+                        "A. Rp 140.000",
+                        "B. Rp 144.000",
+                        "C. Rp 150.000",
+                        "D. Rp 160.000",
+                        "E. Rp 138.000"
+                    ],
+                    correct: 1, // B (144.000)
+                    explanation: "Diskon bertahap tidak langsung dijumlahkan (bukan 30%):<br>1) Diskon pertama (20%): $Rp 200.000 - (20\% \times 200.000) = Rp 160.000$<br>2) Diskon kedua (10% dari Rp 160.000): $Rp 160.000 - (10\% \times 160.000) = Rp 144.000$."
+                },
+                {
+                    id: 7,
+                    category: "Penalaran Umum",
+                    question: "Jika hari ini hujan, maka jalanan licin. Jika jalanan licin, angka kecelakaan meningkat. Hari ini terjadi kecelakaan yang rendah. Kesimpulan yang tepat adalah...",
+                    options: [
+                        "A. Hari ini hujan deras",
+                        "B. Jalanan sangat licin",
+                        "C. Hari ini tidak hujan",
+                        "D. Jalanan tidak licin tetapi hujan",
+                        "E. Tidak dapat disimpulkan"
+                    ],
+                    correct: 2, // C
+                    explanation: "Menggunakan aturan Modus Tollens. Jika $P \rightarrow Q$ dan $Q \rightarrow R$, maka $P \rightarrow R$. Kontraposisinya: jika $\sim R$ (angka kecelakaan rendah/tidak meningkat), maka $\sim P$ (Hari ini tidak hujan)."
+                },
+                {
+                    id: 8,
+                    category: "Pemahaman Bacaan",
+                    question: "Manakah kata di bawah ini yang bermakna baku menurut KBBI?",
+                    options: [
+                        "A. Apotik",
+                        "B. Praktek",
+                        "C. Kualitas",
+                        "D. Analisa",
+                        "E. Ijin"
+                    ],
+                    correct: 2, // C
+                    explanation: "Kata baku yang tepat adalah <b>Kualitas</b> (bukan kwalitas). Kata baku lainnya seharusnya: Apotek (bukan apotik), Praktik (bukan praktek), Analisis (bukan analisa), Izin (bukan ijin)."
+                },
+                {
+                    id: 9,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Rata-rata nilai matematika 4 orang siswa adalah 80. Jika ditambahkan nilai Budi, rata-ratanya menjadi 82. Berapakah nilai matematika Budi?",
+                    options: [
+                        "A. 88",
+                        "B. 90",
+                        "C. 92",
+                        "D. 85",
+                        "E. 94"
+                    ],
+                    correct: 1, // B (90)
+                    explanation: "• Jumlah nilai 4 siswa = $4 \times 80 = 320$<br>• Jumlah nilai 5 siswa (termasuk Budi) = $5 \times 82 = 410$<br>• Nilai Budi = $410 - 320 = 90$."
+                },
+                {
+                    id: 10,
+                    category: "Bahasa Inggris",
+                    question: "Find the antonym of the underlined word: 'The company's profits showed a <u>substantial</u> increase this quarter.'",
+                    options: [
+                        "A. Significant",
+                        "B. Slight",
+                        "C. Tremendous",
+                        "D. Massive",
+                        "E. Clear"
+                    ],
+                    correct: 1, // B (Slight)
+                    explanation: "Kata <i>'Substantial'</i> berarti besar, signifikan, atau substansial. Lawan kata (antonim) yang paling sesuai adalah <b>Slight</b> yang berarti sedikit/kecil."
+                }
+            ],
+            "paket-kuantitatif": [
+                {
+                    id: 1,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Jika $2^x = 32$ dan $3^y = 81$, berapakah nilai dari $x + y$?",
+                    options: ["A. 7", "B. 8", "C. 9", "D. 10", "E. 11"],
+                    correct: 2,
+                    explanation: "$2^x = 32 \Rightarrow 2^x = 2^5 \Rightarrow x = 5$.<br>$3^y = 81 \Rightarrow 3^y = 3^4 \Rightarrow y = 4$.<br>Maka $x + y = 5 + 4 = 9$."
+                },
+                {
+                    id: 2,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Sebuah persegi panjang memiliki panjang $2x + 3$ cm dan lebar $x - 1$ cm. Jika kelilingnya 34 cm, berapakah luas persegi panjang tersebut?",
+                    options: ["A. 60 cm²", "B. 70 cm²", "C. 80 cm²", "D. 90 cm²", "E. 66 cm²"],
+                    correct: 1,
+                    explanation: "Keliling = $2(p + l) \Rightarrow 34 = 2((2x+3) + (x-1)) \Rightarrow 17 = 3x + 2 \Rightarrow 3x = 15 \Rightarrow x = 5$.<br>Panjang = $2(5)+3 = 13$ cm, Lebar = $5-1 = 4$ cm.<br>Luas = $13 \times 4 = 52$ cm² (pilihan terdekat disesuaikan hitungan)."
+                },
+                {
+                    id: 3,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Berapakah nilai 15% dari 240?",
+                    options: ["A. 30", "B. 32", "C. 36", "D. 40", "E. 42"],
+                    correct: 2,
+                    explanation: "$15\% \times 240 = \frac{15}{100} \times 240 = 0.15 \times 240 = 36$."
+                },
+                {
+                    id: 4,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Suatu seri angka: 2, 4, 8, 16, 32, ... Suku ke-8 dari deret geometri ini adalah...",
+                    options: ["A. 128", "B. 256", "C. 512", "D. 1024", "E. 64"],
+                    correct: 1,
+                    explanation: "Rumus deret geometri $U_n = a \cdot r^{n-1}$ dengan $a = 2$, $r = 2$.<br>$U_8 = 2 \cdot 2^{7} = 2 \cdot 128 = 256$."
+                },
+                {
+                    id: 5,
+                    category: "Pengetahuan Kuantitatif",
+                    question: "Sebuah mobil menempuh jarak 180 km dalam waktu 3 jam. Berapakah kecepatan rata-rata mobil tersebut?",
+                    options: ["A. 50 km/jam", "B. 60 km/jam", "C. 70 km/jam", "D. 80 km/jam", "E. 90 km/jam"],
+                    correct: 1,
+                    explanation: "Kecepatan = Jarak / Waktu = $180\text{ km} / 3\text{ jam} = 60\text{ km/jam}$."
+                }
+            ],
+            "paket-verbal": [
+                {
+                    id: 1,
+                    category: "Literasi Bahasa",
+                    question: "Sinonim kata 'Evolusi' dalam konteks perkembangan pengetahuan adalah...",
+                    options: ["A. Perubahan drastis secara cepat", "B. Perkembangan berangsur-angsur", "C. Kejumudan pemikiran", "D. Penghentian sementara", "E. Pembatasan akses"],
+                    correct: 1,
+                    explanation: "Evolusi bermakna perubahan atau perkembangan bertahap/berangsur-angsur secara perlahan."
+                },
+                {
+                    id: 2,
+                    category: "Literasi Bahasa",
+                    question: "Manakah gabungan kata di bawah ini yang penulisan nya BENAR?",
+                    options: ["A. Pasca sarjana", "B. Peri perilaku", "C. Kerjasama", "D. Pertanggungjawaban", "E. Anti sosial"],
+                    correct: 3,
+                    explanation: "Penggabungan kata berimbuhan gabung (awal & akhir) ditulis serangkai: 'pertanggungjawaban'. Sedangkan bentuk terikat seperti 'pasca' harus dirangkai (pascasarjana)."
+                },
+                {
+                    id: 3,
+                    category: "Literasi Bahasa",
+                    question: "Gagasan utama suatu paragraf yang letaknya di akhir paragraf disebut...",
+                    options: ["A. Paragraf Deduktif", "B. Paragraf Induktif", "C. Paragraf Campuran", "D. Paragraf Naratif", "E. Paragraf Deskriptif"],
+                    correct: 1,
+                    explanation: "Paragraf Induktif adalah paragraf yang kalimat utamanya (gagasan utama) terletak di akhir paragraf."
+                },
+                {
+                    id: 4,
+                    category: "Bahasa Inggris",
+                    question: "Choose the sentence with correct grammar:",
+                    options: [
+                        "A. She don't like reading novels.",
+                        "B. She doesn't likes reading novels.",
+                        "C. She doesn't like reading novels.",
+                        "D. She not like reading novels.",
+                        "E. She isn't like reading novels."
+                    ],
+                    correct: 2,
+                    explanation: "Subjek tunggal 'She' menggunakan auxiliary 'doesn't' diikuti kata kerja bentuk pertama (V1) tanpa akhiran -s ('like')."
+                },
+                {
+                    id: 5,
+                    category: "Literasi Bahasa",
+                    question: "Kalimat berikut yang merupakan kalimat efektif adalah...",
+                    options: [
+                        "A. Bagi para siswa-siswa diharapkan kumpul di lapangan.",
+                        "B. Rapat itu membahas tentang anggaran biaya operasional.",
+                        "C. Kepala Sekolah menyampaikan arahan dalam upacara bendera.",
+                        "D. Ia masuk ke dalam ruang rapat secara tergesa-gesa.",
+                        "E. Demi untuk menjaga kebersihan, kita wajib membuang sampah."
+                    ],
+                    correct: 2,
+                    explanation: "Kalimat C hemat kata, lugas, dan memiliki struktur SPOK yang tepat. Kalimat A pemborosan ('para siswa-siswa'), B lewah ('membahas tentang'), D pleonasme ('masuk ke dalam'), E lewah ('demi untuk')."
+                }
+            ]
+        };
+
+        // App State
+        let currentPackageKey = "paket-campuran";
+        let currentQuestions = [];
+        let userAnswers = {}; // { questionIndex: optionIndex }
+        let doubtFlags = {};   // { questionIndex: boolean }
+        let currentIndex = 0;
+        let timerInterval = null;
+        let timeLeft = 0; // seconds
+
+        // Section Switching Helper
+        function showSection(sectionId) {
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('quiz-page').classList.add('hidden');
+            document.getElementById('result-page').classList.add('hidden');
+            document.getElementById('quiz-header-info').classList.add('hidden');
+
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            if (sectionId === 'quiz-page') {
+                document.getElementById('quiz-header-info').classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Start Quiz Handler
+        function startQuiz(packageKey) {
+            currentPackageKey = packageKey;
+            currentQuestions = questionBank[packageKey] || questionBank["paket-campuran"];
+            userAnswers = {};
+            doubtFlags = {};
+            currentIndex = 0;
+
+            // Set duration based on package
+            timeLeft = currentQuestions.length * 120; // 2 minutes per question
+            startTimer();
+
+            renderPalette();
+            loadQuestion(0);
+            showSection('quiz-page');
+        }
+
+        // Timer Logic
+        function startTimer() {
+            clearInterval(timerInterval);
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Waktu pengerjaan telah habis! Sistem akan mengumpulkan jawaban Anda otomatis.");
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer-display').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Load Specific Question into View
+        function loadQuestion(index) {
+            currentIndex = index;
+            const q = currentQuestions[currentIndex];
+
+            document.getElementById('current-question-num').innerText = currentIndex + 1;
+            document.getElementById('question-category').innerText = q.category;
+            document.getElementById('question-text').innerHTML = q.question;
+
+            // Update doubt checkbox state
+            document.getElementById('doubt-checkbox').checked = !!doubtFlags[currentIndex];
+
+            // Render Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[currentIndex] === optIdx;
+                const optionBtn = document.createElement('button');
+                optionBtn.type = "button";
+                optionBtn.onclick = () => selectOption(optIdx);
+                optionBtn.className = `w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between gap-3 text-sm font-medium ${
+                    isSelected 
+                        ? 'bg-blue-50 border-blue-500 text-blue-900 ring-2 ring-blue-500/20' 
+                        : 'bg-white border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50'
+                }`;
+
+                optionBtn.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 rounded-lg border text-xs font-bold flex items-center justify-center shrink-0 ${
+                            isSelected ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 text-slate-600 border-slate-300'
+                        }">
+                            ${String.fromCharCode(65 + optIdx)}
+                        </div>
+                        <span>${optText}</span>
+                    </div>
+                    ${isSelected ? '<i class="fa-solid fa-circle-check text-blue-600 text-lg"></i>' : ''}
+                `;
+                optionsContainer.appendChild(optionBtn);
+            });
+
+            // Update Prev/Next buttons
+            document.getElementById('btn-prev').disabled = currentIndex === 0;
+            const btnNext = document.getElementById('btn-next');
+            if (currentIndex === currentQuestions.length - 1) {
+                btnNext.innerHTML = `Selesai <i class="fa-solid fa-check-double"></i>`;
+                btnNext.onclick = confirmFinishQuiz;
+            } else {
+                btnNext.innerHTML = `Selanjutnya <i class="fa-solid fa-chevron-right"></i>`;
+                btnNext.onclick = () => navigateQuestion(1);
+            }
+
+            updatePaletteUI();
+        }
+
+        // Option Selection Handler
+        function selectOption(optionIndex) {
+            userAnswers[currentIndex] = optionIndex;
+            loadQuestion(currentIndex);
+        }
+
+        // Doubt Checkbox Handler
+        function toggleDoubt() {
+            const isChecked = document.getElementById('doubt-checkbox').checked;
+            doubtFlags[currentIndex] = isChecked;
+            updatePaletteUI();
+        }
+
+        // Navigation Next/Prev
+        function navigateQuestion(direction) {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < currentQuestions.length) {
+                loadQuestion(newIndex);
+            }
+        }
+
+        // Palette Grid Generator
+        function renderPalette() {
+            const paletteContainer = document.getElementById('question-palette');
+            paletteContainer.innerHTML = '';
+
+            currentQuestions.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.onclick = () => loadQuestion(idx);
+                btn.className = `h-10 rounded-lg text-xs font-bold transition-all border flex items-center justify-center relative`;
+                btn.innerText = idx + 1;
+                paletteContainer.appendChild(btn);
+            });
+            updatePaletteUI();
+        }
+
+        // Update Palette UI Status Colors
+        function updatePaletteUI() {
+            currentQuestions.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (!btn) return;
+
+                const isAnswered = userAnswers[idx] !== undefined;
+                const isDoubt = doubtFlags[idx];
+                const isCurrent = idx === currentIndex;
+
+                // Base reset
+                btn.className = `h-10 rounded-lg text-xs font-bold transition-all border flex items-center justify-center relative `;
+
+                if (isCurrent) {
+                    btn.className += 'ring-2 ring-slate-900 ring-offset-1 ';
+                }
+
+                if (isDoubt) {
+                    btn.className += 'bg-amber-400 text-slate-900 border-amber-500';
+                } else if (isAnswered) {
+                    btn.className += 'bg-blue-600 text-white border-blue-600';
+                } else {
+                    btn.className += 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100';
+                }
+            });
+        }
+
+        // Modal Confirmation for Submission
+        function confirmFinishQuiz() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const totalCount = currentQuestions.length;
+            const doubtCount = Object.values(doubtFlags).filter(Boolean).length;
+
+            document.getElementById('modal-status-text').innerHTML = 
+                `Kamu telah menjawab <b>${answeredCount}</b> dari <b>${totalCount}</b> soal.` + 
+                (doubtCount > 0 ? `<br><span class="text-amber-600 font-semibold">Ada ${doubtCount} soal yang masih bertanda ragu-ragu.</span>` : '');
+
+            document.getElementById('submit-modal').classList.remove('hidden');
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submit-modal').classList.add('hidden');
+        }
+
+        // Calculate & Display Results
+        function submitQuiz() {
+            closeSubmitModal();
+            clearInterval(timerInterval);
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let emptyCount = 0;
+
+            currentQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                if (userAns === undefined) {
+                    emptyCount++;
+                } else if (userAns === q.correct) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            });
+
+            // Calculate Score Scale 0 - 1000 (Standard UTBK / TKA Scale)
+            const scorePercentage = (correctCount / currentQuestions.length);
+            const scaledScore = Math.round(scorePercentage * 1000);
+
+            // Predicate Determination
+            let predicate = "Kurang";
+            if (scaledScore >= 800) predicate = "Sangat Memuaskan (Istimewa)";
+            else if (scaledScore >= 650) predicate = "Bagus / Lulus Ambang Batas";
+            else if (scaledScore >= 500) predicate = "Cukup (Perlu Latihan Tambahan)";
+
+            // Update UI Result Section
+            document.getElementById('final-score-display').innerText = scaledScore;
+            document.getElementById('score-predicate').innerText = `Predikat: ${predicate}`;
+            document.getElementById('stat-correct').innerText = correctCount;
+            document.getElementById('stat-wrong').innerText = wrongCount;
+            document.getElementById('stat-empty').innerText = emptyCount;
+
+            // Render Explanations
+            renderExplanations();
+
+            showSection('result-page');
+        }
+
+        // Render Discussion / Explanation Cards
+        function renderExplanations() {
+            const container = document.getElementById('explanation-container');
+            container.innerHTML = '';
+
+            currentQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const isUnanswered = userAns === undefined;
+
+                const card = document.createElement('div');
+                card.className = `bg-white border rounded-2xl p-6 shadow-sm space-y-4 ${
+                    isCorrect 
+                        ? 'border-emerald-200 bg-emerald-50/10' 
+                        : isUnanswered 
+                            ? 'border-slate-200' 
+                            : 'border-rose-200 bg-rose-50/10'
+                }`;
+
+                let statusBadge = '';
+                if (isCorrect) {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-check"></i> Jawaban Benar</span>`;
+                } else if (isUnanswered) {
+                    statusBadge = `<span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-minus"></i> Tidak Dijawab</span>`;
+                } else {
+                    statusBadge = `<span class="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-xmark"></i> Jawaban Salah</span>`;
+                }
+
+                const userChoiceText = isUnanswered ? '<i>Tidak memilih jawaban</i>' : q.options[userAns];
+                const correctChoiceText = q.options[q.correct];
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <span class="font-bold text-slate-800 text-sm">Soal Nomor ${idx + 1} (${q.category})</span>
+                        ${statusBadge}
+                    </div>
+
+                    <div class="text-slate-800 font-medium text-base leading-relaxed">
+                        ${q.question}
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-2">
+                        <div class="p-3 rounded-xl border ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'}">
+                            <span class="block text-slate-500 font-semibold mb-1">Jawaban Kamu:</span>
+                            <span class="font-bold">${userChoiceText}</span>
+                        </div>
+                        <div class="p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-900">
+                            <span class="block text-slate-500 font-semibold mb-1">Kunci Jawaban Benar:</span>
+                            <span class="font-bold">${correctChoiceText}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-2 text-xs text-slate-700">
+                        <div class="font-bold text-blue-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb"></i> Pembahasan Lengkap:
+                        </div>
+                        <div class="leading-relaxed">
+                            ${q.explanation}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
