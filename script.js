@@ -55,7 +55,7 @@ const soal = [
 // Variabel Global
 let nomorSekarang = 0;
 let jawabanUser = Array(soal.length).fill(null);
-let sisaWaktu = 60 * 60; // 60 menit dalam detik
+let sisaWaktu = 60 * 60;
 let timerInterval;
 
 // Elemen DOM
@@ -94,11 +94,8 @@ function tampilkanSoal() {
     const data = soal[nomorSekarang];
     nomorSoalEl.textContent = nomorSekarang + 1;
     teksSoal.textContent = data.teks;
-    
-    // Progress bar
     progressFill.style.width = `${((nomorSekarang + 1) / soal.length) * 100}%`;
 
-    // Tampilkan pilihan jawaban
     daftarJawaban.innerHTML = '';
     data.pilihan.forEach((pilihan, indeks) => {
         const div = document.createElement('label');
@@ -114,7 +111,6 @@ function tampilkanSoal() {
         daftarJawaban.appendChild(div);
     });
 
-    // Atur tombol navigasi
     document.getElementById('btn-sebelumnya').style.display = nomorSekarang === 0 ? 'none' : 'inline-block';
     document.getElementById('btn-berikutnya').style.display = nomorSekarang === soal.length - 1 ? 'none' : 'inline-block';
     document.getElementById('btn-selesai').style.display = nomorSekarang === soal.length - 1 ? 'inline-block' : 'none';
