@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    margin-top: 8px;
+    opacity: 0.9;
+}
+
+.timer-box {
+    margin-top: 12px;
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.screen {
+    display: none;
+}
+.screen.active {
+    display: block;
+}
+
+.info-card, .hasil-kotak {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.info-card h2, .hasil-kotak h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.info-card ul {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.info-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.btn:hover {
+    transform: translateY(-2px);
+}
+.btn-primary {
+    background: #3498db;
+    color: white;
+    width: 100%;
+}
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+#progress-fill {
+    height: 100%;
+    background: #27ae60;
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.3s;
+}
+
+.soal-nomor {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.soal-kotak {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#teks-soal {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.jawaban-pilihan {
+    display: block;
+    padding: 12px 16px;
+    margin: 8px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.jawaban-pilihan:hover {
+    border-color: #3498db;
+}
+.jawaban-pilihan.terpilih {
+    border-color: #3498db;
+    background: #eaf4fe;
+}
+
+.navigasi {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.nilai-akhir {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    color: #2c3e50;
+}
+
+.ringkasan {
+    list-style: none;
+    margin: 20px 0;
+}
+.ringkasan li {
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+#btn-selesai {
+    display: none;
+}
