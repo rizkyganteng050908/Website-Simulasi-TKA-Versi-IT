@@ -5,78 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulasi TKA — Bidang IT & PPLG</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="latar">
+        <div class="bentuk lingkaran-1"></div>
+        <div class="bentuk lingkaran-2"></div>
+    </div>
+
     <div class="container">
-        <header>
-            <div class="atasan">
-                <div>
-                    <h1>📚 Simulasi TKA</h1>
-                    <p class="subtitle">Bidang Keahlian: Pengembangan Perangkat Lunak & Gim (PPLG/RPL)</p>
+        <!-- Header Atas -->
+        <header class="header-ujian">
+            <div class="baris-atas">
+                <div class="logo-bagian">
+                    <i class="fas fa-laptop-code ikon-utama"></i>
+                    <div>
+                        <h1>Simulasi TKA</h1>
+                        <p>Bidang IT & PPLG</p>
+                    </div>
                 </div>
                 <div class="info-pengguna">
-                    <span id="nama-pengguna"></span>
-                    <a href="index.html" class="keluar">Keluar</a>
+                    <div class="kartu-pengguna">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="nama-pengguna">Pengguna</span>
+                    </div>
+                    <a href="index.html" class="tombol-keluar">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </a>
                 </div>
             </div>
-            <div class="timer-box">
-                Waktu: <span id="timer">60:00</span>
+            <div class="kartu-waktu">
+                <i class="fas fa-clock"></i>
+                Sisa Waktu: <span id="timer">60:00</span>
             </div>
         </header>
 
-        <div id="start-screen" class="screen active">
-            <div class="info-card">
-                <h2>Informasi Ujian</h2>
-                <ul>
-                    <li>Jumlah soal: <strong>10 soal</strong> (contoh latihan)</li>
-                    <li>Waktu pengerjaan: <strong>60 menit</strong></li>
-                    <li>Pilih 1 jawaban yang benar</li>
-                    <li>Nilai minimal kelulusan: <strong>70</strong></li>
+        <!-- Layar Mulai -->
+        <div id="start-screen" class="layar aktif">
+            <div class="kartu-utama">
+                <h2><i class="fas fa-info-circle"></i> Informasi Ujian</h2>
+                <ul class="daftar-info">
+                    <li><i class="fas fa-list-ol"></i> Jumlah Soal: <strong>10 Soal</strong></li>
+                    <li><i class="fas fa-hourglass-half"></i> Waktu: <strong>60 Menit</strong></li>
+                    <li><i class="fas fa-check-circle"></i> Pilih 1 Jawaban yang Benar</li>
+                    <li><i class="fas fa-graduation-cap"></i> Nilai Lulus: <strong>≥ 70</strong></li>
                 </ul>
-                <button id="btn-mulai" class="btn btn-primary">Mulai Ujian</button>
+                <button id="btn-mulai" class="tombol utama">
+                    <i class="fas fa-play"></i> Mulai Ujian Sekarang
+                </button>
             </div>
         </div>
 
-        <div id="quiz-screen" class="screen">
-            <div class="progress-bar">
-                <div id="progress-fill"></div>
+        <!-- Layar Ujian -->
+        <div id="quiz-screen" class="layar">
+            <div class="bagian-progress">
+                <div class="bar-progress">
+                    <div id="isi-progress"></div>
+                </div>
+                <p class="teks-progress">Soal <span id="nomor-soal">1</span> dari 10</p>
             </div>
-            <p class="soal-nomor">Soal <span id="nomor-soal">1</span> dari 10</p>
 
-            <div class="soal-kotak">
-                <p id="teks-soal"></p>
-                <div id="daftar-jawaban"></div>
+            <div class="kartu-soal">
+                <p id="teks-soal" class="teks-soal"></p>
+                <div id="daftar-jawaban" class="daftar-pilihan"></div>
             </div>
 
             <div class="navigasi">
-                <button id="btn-sebelumnya" class="btn btn-secondary">Sebelumnya</button>
-                <button id="btn-berikutnya" class="btn btn-primary">Berikutnya</button>
-                <button id="btn-selesai" class="btn btn-success">Selesai</button>
+                <button id="btn-sebelumnya" class="tombol sekunder">
+                    <i class="fas fa-chevron-left"></i> Sebelumnya
+                </button>
+                <button id="btn-berikutnya" class="tombol utama">
+                    Berikutnya <i class="fas fa-chevron-right"></i>
+                </button>
+                <button id="btn-selesai" class="tombol sukses">
+                    <i class="fas fa-check-double"></i> Selesai
+                </button>
             </div>
         </div>
 
-        <div id="hasil-screen" class="screen">
-            <div class="hasil-kotak">
+        <!-- Layar Hasil -->
+        <div id="hasil-screen" class="layar">
+            <div class="kartu-hasil">
+                <div class="lingkaran-ikon">
+                    <i id="ikon-hasil" class="fas fa-trophy"></i>
+                </div>
                 <h2>Hasil Ujian</h2>
-                <p class="nilai-akhir">Nilai Kamu: <span id="nilai-akhir">0</span></p>
-                <p id="status-lulus"></p>
-                <ul class="ringkasan">
-                    <li>Benar: <span id="jml-benar">0</span></li>
-                    <li>Salah: <span id="jml-salah">0</span></li>
-                    <li>Tidak dijawab: <span id="jml-kosong">0</span></li>
-                </ul>
-                <button id="btn-ulang" class="btn btn-primary">Ulangi Latihan</button>
+                <p class="nilai-akhir"><span id="nilai-akhir">0</span></p>
+                <p id="status-lulus" class="status"></p>
+                <div class="ringkasan-hasil">
+                    <div class="item-hasil benar">
+                        <span id="jml-benar">0</span>
+                        <label>Benar</label>
+                    </div>
+                    <div class="item-hasil salah">
+                        <span id="jml-salah">0</span>
+                        <label>Salah</label>
+                    </div>
+                    <div class="item-hasil kosong">
+                        <span id="jml-kosong">0</span>
+                        <label>Kosong</label>
+                    </div>
+                </div>
+                <button id="btn-ulang" class="tombol utama">
+                    <i class="fas fa-redo"></i> Ulangi Latihan
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Cek sudah login belum
+        // Cek sudah login
         const nama = localStorage.getItem('namaPengguna');
         if (!nama) {
             window.location.href = 'index.html';
         } else {
-            document.getElementById('nama-pengguna').textContent = '👤 ' + nama;
+            document.getElementById('nama-pengguna').textContent = nama;
         }
     </script>
     <script src="script.js"></script>
