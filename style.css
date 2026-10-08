@@ -11,15 +11,107 @@ body {
     padding: 20px;
 }
 
+/* === Halaman Login === */
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-kotak {
+    background: white;
+    border-radius: 12px;
+    padding: 35px 30px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.login-kotak h1 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.login-desc {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.form-grup {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.form-grup label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-grup input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.form-grup input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.catatan {
+    font-size: 13px;
+    color: #888;
+    margin: 10px 0 20px;
+}
+
+.btn-penuh {
+    width: 100%;
+}
+
+/* === Halaman Ujian === */
 .container {
     max-width: 800px;
     margin: 0 auto;
 }
 
 header {
-    text-align: center;
     color: white;
     margin-bottom: 30px;
+}
+
+.atasan {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.info-pengguna {
+    text-align: right;
+}
+
+.info-pengguna span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.keluar {
+    color: #ffd700;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.keluar:hover {
+    text-decoration: underline;
 }
 
 .subtitle {
@@ -80,7 +172,6 @@ header {
 .btn-primary {
     background: #3498db;
     color: white;
-    width: 100%;
 }
 .btn-secondary {
     background: #95a5a6;
@@ -146,6 +237,7 @@ header {
     display: flex;
     gap: 10px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .nilai-akhir {
