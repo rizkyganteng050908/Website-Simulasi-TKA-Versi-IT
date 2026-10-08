@@ -1,3 +1,4 @@
+/* === DASAR === */
 * {
     margin: 0;
     padding: 0;
@@ -6,79 +7,214 @@
 }
 
 body {
-    background: linear-gradient(135deg, #2c3e50, #3498db);
     min-height: 100vh;
-    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* === Halaman Login === */
+/* === LATAR BELAKANG BERGERAK === */
+.latar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a252f, #2980b9, #27ae60);
+    background-size: 400% 400%;
+    animation: gradasi 15s ease infinite;
+    z-index: -2;
+}
+
+@keyframes gradasi {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.bentuk {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    filter: blur(30px);
+    z-index: -1;
+}
+
+.lingkaran-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    right: -100px;
+    animation: melayang 8s infinite ease-in-out;
+}
+
+.lingkaran-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -80px;
+    left: -80px;
+    animation: melayang 10s infinite ease-in-out reverse;
+}
+
+@keyframes melayang {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* === HALAMAN LOGIN === */
 .login-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    padding: 20px;
 }
 
 .login-kotak {
-    background: white;
-    border-radius: 12px;
-    padding: 35px 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 45px 35px;
     width: 100%;
     max-width: 420px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
     text-align: center;
+    backdrop-filter: blur(10px);
+    animation: muncul 0.6s ease-out;
+}
+
+@keyframes muncul {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-ikon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: white;
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.35);
 }
 
 .login-kotak h1 {
-    color: #2c3e50;
+    color: #1a252f;
     margin-bottom: 8px;
+    font-size: 26px;
 }
 
 .login-desc {
-    color: #666;
-    margin-bottom: 25px;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 15px;
 }
 
 .form-grup {
     text-align: left;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .form-grup label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.form-grup label i {
+    color: #3498db;
 }
 
 .form-grup input {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 14px 18px;
+    border: 2px solid #e0e6ed;
+    border-radius: 12px;
     font-size: 15px;
-    transition: border-color 0.2s;
+    transition: all 0.3s ease;
+    background: #f9fbfc;
 }
 
 .form-grup input:focus {
     outline: none;
     border-color: #3498db;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
 }
 
 .catatan {
     font-size: 13px;
-    color: #888;
-    margin: 10px 0 20px;
+    color: #95a5a6;
+    margin: 12px 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.catatan i {
+    color: #f39c12;
+}
+
+.btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
 }
 
 .btn-penuh {
     width: 100%;
 }
 
-/* === Halaman Ujian === */
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9, #1f618d);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+/* === HALAMAN UJIAN === */
 .container {
     max-width: 800px;
     margin: 0 auto;
+    padding: 20px;
 }
 
 header {
@@ -136,10 +272,10 @@ header {
 }
 
 .info-card, .hasil-kotak {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
     padding: 30px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
 .info-card h2, .hasil-kotak h2 {
@@ -156,30 +292,6 @@ header {
 .info-card li {
     padding: 8px 0;
     border-bottom: 1px solid #eee;
-}
-
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-.btn:hover {
-    transform: translateY(-2px);
-}
-.btn-primary {
-    background: #3498db;
-    color: white;
-}
-.btn-secondary {
-    background: #95a5a6;
-    color: white;
-}
-.btn-success {
-    background: #27ae60;
-    color: white;
 }
 
 .progress-bar {
@@ -202,11 +314,11 @@ header {
 }
 
 .soal-kotak {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
     padding: 25px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
 #teks-soal {
@@ -214,23 +326,28 @@ header {
     font-weight: 500;
     margin-bottom: 20px;
     line-height: 1.6;
+    color: #2c3e50;
 }
 
 .jawaban-pilihan {
     display: block;
-    padding: 12px 16px;
-    margin: 8px 0;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border: 2px solid #e0e6ed;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
+    background: white;
 }
 .jawaban-pilihan:hover {
     border-color: #3498db;
+    background: #f0f8ff;
+    transform: translateX(5px);
 }
 .jawaban-pilihan.terpilih {
     border-color: #3498db;
     background: #eaf4fe;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
 }
 
 .navigasi {
