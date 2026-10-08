@@ -3,65 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi TKA - Bidang IT & PPLG</title>
+    <title>Login — Simulasi TKA IT/PPLG</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📚 Simulasi TKA</h1>
-            <p class="subtitle">Bidang Keahlian: Pengembangan Perangkat Lunak & Gim (PPLG/RPL)</p>
-            <div class="timer-box">
-                Waktu: <span id="timer">60:00</span>
-            </div>
-        </header>
-
-        <div id="start-screen" class="screen active">
-            <div class="info-card">
-                <h2>Informasi Ujian</h2>
-                <ul>
-                    <li>Jumlah soal: <strong>10 soal</strong> (contoh latihan)</li>
-                    <li>Waktu pengerjaan: <strong>60 menit</strong></li>
-                    <li>Pilih 1 jawaban yang benar</li>
-                    <li>Nilai minimal kelulusan: <strong>70</strong></li>
-                </ul>
-                <button id="btn-mulai" class="btn btn-primary">Mulai Ujian</button>
-            </div>
-        </div>
-
-        <div id="quiz-screen" class="screen">
-            <div class="progress-bar">
-                <div id="progress-fill"></div>
-            </div>
-            <p class="soal-nomor">Soal <span id="nomor-soal">1</span> dari 10</p>
-
-            <div class="soal-kotak">
-                <p id="teks-soal"></p>
-                <div id="daftar-jawaban"></div>
-            </div>
-
-            <div class="navigasi">
-                <button id="btn-sebelumnya" class="btn btn-secondary">Sebelumnya</button>
-                <button id="btn-berikutnya" class="btn btn-primary">Berikutnya</button>
-                <button id="btn-selesai" class="btn btn-success">Selesai</button>
-            </div>
-        </div>
-
-        <div id="hasil-screen" class="screen">
-            <div class="hasil-kotak">
-                <h2>Hasil Ujian</h2>
-                <p class="nilai-akhir">Nilai Kamu: <span id="nilai-akhir">0</span></p>
-                <p id="status-lulus"></p>
-                <ul class="ringkasan">
-                    <li>Benar: <span id="jml-benar">0</span></li>
-                    <li>Salah: <span id="jml-salah">0</span></li>
-                    <li>Tidak dijawab: <span id="jml-kosong">0</span></li>
-                </ul>
-                <button id="btn-ulang" class="btn btn-primary">Ulangi Latihan</button>
-            </div>
+    <div class="login-wrapper">
+        <div class="login-kotak">
+            <h1>🔐 Masuk</h1>
+            <p class="login-desc">Simulasi TKA — Bidang IT & PPLG</p>
+            
+            <form id="form-login">
+                <div class="form-grup">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Isi username bebas" required>
+                </div>
+                <div class="form-grup">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Isi password bebas" required>
+                </div>
+                <p class="catatan">💡 Username & password boleh isi apa saja</p>
+                <button type="submit" class="btn btn-primary btn-penuh">Masuk ke Ujian</button>
+            </form>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const formLogin = document.getElementById('form-login');
+        formLogin.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value.trim();
+            if (user) {
+                localStorage.setItem('namaPengguna', user);
+                window.location.href = 'ujian.html';
+            }
+        });
+    </script>
 </body>
 </html>
